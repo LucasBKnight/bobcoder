@@ -133,6 +133,10 @@ if __name__ == '__main__':
                 print("Input Command\n> ", end='')
         elif a == "generate" or a == "g":
             gen = True
+            rack = 26
+            for w in range(rack):
+                for i in range(4):
+                    cypher[w][i] = int(random.randrange(1000, 9998))
             print("'\r{0}".format(f"{bcolors.OKGREEN}[Generated]{bcolors.ENDC}\n"))
             print(json.dumps(cypher))
             print("\nInput Command\n> ", end='')
