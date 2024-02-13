@@ -7,7 +7,7 @@ the latest exe files are in the "exefiles" folder, go nuts. Note that "BobcoderM
 **Bobcoder MacOS Ver 0.1.2 Beta**
   
   Two stage encoding and copy paste QOL features added from last time
-
+------------------------------------------------------------
 **Bobcoder Windows Ver 0.0.4 Beta**
   
   One stage encoding and no QOL features except already implimented first letter shortcuts
