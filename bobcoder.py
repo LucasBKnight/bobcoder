@@ -2,12 +2,20 @@
 import random
 import re
 import json
+import subprocess
+
 
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 def wrap(s, w):
     sre = re.compile(rf'(.{{{w}}})')
     return [x for x in re.split(sre, s) if x]
+
+
+def write_to_clipboard(output):
+    process = subprocess.Popen(
+        'pbcopy', env={'LANG': 'en_US.UTF-8'}, stdin=subprocess.PIPE)
+    process.communicate(output.encode('utf-8'))
 
 
 def listToString(s):
@@ -20,7 +28,7 @@ def listToString(s):
     return str1
 
 
-cypher = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0],
+cypher = [[0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0],
           [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0],
           [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0],
           [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
@@ -40,6 +48,7 @@ class bcolors:
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    genwrapw = 2
     gen = False
     LINE_CLEAR = '\x1b[2K'
     b = True
@@ -65,10 +74,27 @@ if __name__ == '__main__':
                     if output[i] == -65:
                         lecyp.append(str(9999))
                     else:
-                        number = cypher[output[i]][random.randrange(0, 3)]
+                        # print(str(i)+str(random.randrange(9999)))
+                        number = cypher[output[i] + 1][random.randrange(0, 3)]
                         lecyp.append(str(number))
+                print(f"{bcolors.OKGREEN}[ENCRYPTION PASS 1/2]{bcolors.ENDC}", end='')
+                lecyp = listToString(lecyp)
+                lecyp = wrap(lecyp, 4)
+                # print(lecyp)
+                for i in range(len(lecyp)):
+                    lecyp[i] = chr(int(int(lecyp[i])))
+                # print(lecyp)
+                print(f"\r{bcolors.OKGREEN}[ENCRYPTION PASS 2/2]{bcolors.ENDC}")
                 print(f"{bcolors.OKGREEN}[MESSAGE SUCCESSFULLY ENCODED]{bcolors.ENDC}")
-                print(listToString(lecyp))
+                clip = listToString(lecyp)
+                print(clip)
+                print(
+                    f"Copy to Clipboard (y/n)? {bcolors.WARNING}(This may delete information currently stored there) {bcolors.ENDC}\n> ",
+                    end='')
+                if input() == "y":
+                    write_to_clipboard(clip)
+                    print(f"{bcolors.OKGREEN}[MESSAGE SUCCESSFULLY COPIED]{bcolors.ENDC}")
+
                 print("'\r{0}".format("Input Command\n> "), end='')
             else:
 
@@ -79,18 +105,21 @@ if __name__ == '__main__':
             print("Write Message to Decode\n> ", end='')
             ec = input()
             if gen == True:
-                ecl = wrap(ec, 4)
-                # if str in ecl:
-                # print(f"{bcolors.FAIL}[DECODING FAILURE: CHECK YOUR INPUT]{bcolors.ENDC}")
-                # print("'\r{0}".format("Input command\n> "), end='')'''
+                ecl = wrap(ec, 1)
+                # print(ecl)
+                for i in range(len(ecl)):
+                    print(ord(ecl[i]))
+                    ecl[i] = str(ord(ecl[i]))
+                ecl = listToString(ecl)
+                ecl = wrap(ecl, 4)
                 print(f"{bcolors.OKGREEN}[STR WRAPPING SUCCESS]{bcolors.ENDC}")
                 fout = [[]]
                 foutint = 0
                 fouti = 0
                 for l in range(len(ecl)):
-                    for w in range(len(cypher)):
+                    for w in range(len(cypher) - 1):
                         for i in range(4):
-                            if str(ecl[l]) == str(cypher[w][i]):
+                            if str(ecl[l]) == str(cypher[w + 1][i]):
                                 foutint += 1
                                 print(f"\r{bcolors.OKGREEN}[ENCODED VALUES DETECTED: {foutint}|{fouti}]{bcolors.ENDC}",
                                       end='')
@@ -106,6 +135,12 @@ if __name__ == '__main__':
                 print("----------------------")
                 print(" ".join(ff))
                 print("----------------------")
+                print(
+                    f"Copy to Clipboard (y/n)? {bcolors.WARNING}(This may delete information currently stored there) {bcolors.ENDC}\n> ",
+                    end='')
+                if input() == "y":
+                    write_to_clipboard(" ".join(ff))
+                    print(f"{bcolors.OKGREEN}[MESSAGE SUCCESSFULLY COPIED]{bcolors.ENDC}")
             else:
                 print("'\r{0}".format(f"{bcolors.FAIL}[DECODING FAILED: NO CYPHER]{bcolors.ENDC}"))
             print("'\r{0}".format("Input Command\n> "), end='')
@@ -132,11 +167,18 @@ if __name__ == '__main__':
         elif a == "generate" or a == "g":
             gen = True
             rack = 26
+            cypher[0][0] = random.randrange(1, 6)
             for w in range(rack):
                 for i in range(4):
-                    cypher[w][i] = int(random.randrange(1000, 9998))
+                    cypher[w + 1][i] = int(random.randrange(1000, 9998))
             print("'\r{0}".format(f"{bcolors.OKGREEN}[Generated]{bcolors.ENDC}\n"))
             print(json.dumps(cypher))
+            print(
+                f"Copy to Clipboard (y/n)? {bcolors.WARNING}(This may delete information currently stored there) {bcolors.ENDC}\n> ",
+                end='')
+            if input() == "y":
+                write_to_clipboard(str(cypher))
+                print(f"{bcolors.OKGREEN}[MESSAGE SUCCESSFULLY COPIED]{bcolors.ENDC}")
             print("\nInput Command\n> ", end='')
         elif a == "terminate" or a == "t":
             print(f"{bcolors.WARNING}Warning: Action will terminate the encoder. Continue (y/n)?{bcolors.ENDC}\n> ",
@@ -147,11 +189,9 @@ if __name__ == '__main__':
                 print("Input Command\n> ", end='')
         elif a == "help":
             print("'\r{0}".format(
-                f"{bcolors.BOLD}{bcolors.OKCYAN}Commands List{bcolors.ENDC}{bcolors.OKCYAN}\n------------------------------------\nhelp: opens a list of commands\nencode: encodes input with current key\ndecode: decodes input with current key\ngenerate:generates a new cypher key\n------------------------------------{bcolors.ENDC}"))
+                f"{bcolors.BOLD}{bcolors.OKCYAN}Commands List{bcolors.ENDC}{bcolors.OKCYAN}\n------------------------------------\nhelp: opens a list of commands\nencode: encodes input with current key\ndecode: decodes input with current key\ngenerate: generates a new cypher key\nset: allows you to input a key that you have generated\n------------------------------------{bcolors.ENDC}"))
             print("'\r{0}".format("Input Command\n> "), end='')
         else:
             print("'\r{0}".format(f"{bcolors.FAIL}Invalid Command{bcolors.ENDC}"))
             print(f'{bcolors.OKCYAN}Use the "help" command to get a list of commands{bcolors.ENDC}')
             print("'\r{0}".format("Input Command\n> "), end='')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
