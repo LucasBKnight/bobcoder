@@ -86,39 +86,42 @@ if __name__ == '__main__':
                 print("'\r{0}".format("Input Command\n> "), end='')
             else:
 
-                print("'\r{0}".format(f"{bcolors.FAIL}[ENCODING FAILED: CYPHER NOT GENERATED]{bcolors.ENDC}"))
+                print("'\r{0}".format(f"{bcolors.FAIL}[ENCODING FAILED: NO CYPHER]{bcolors.ENDC}"))
 
                 print("'\r{0}".format("Input Command\n> "), end='')
         elif a == "decode" or a == "d":
             print("Write Message to Decode\n> ", end='')
             ec = input()
-            ecl = wrap(ec, 4)
-            # if str in ecl:
-            # print(f"{bcolors.FAIL}[DECODING FAILURE: CHECK YOUR INPUT]{bcolors.ENDC}")
-            # print("'\r{0}".format("Input command\n> "), end='')'''
-            print(f"{bcolors.OKGREEN}[STR WRAPPING SUCCESS]{bcolors.ENDC}")
-            fout = [[]]
-            foutint = 0
-            fouti = 0
-            for l in range(len(ecl)):
-                for w in range(len(cypher)):
-                    for i in range(4):
-                        if str(ecl[l]) == str(cypher[w][i]):
-                            foutint += 1
-                            print(f"\r{bcolors.OKGREEN}[ENCODED VALUES DETECTED: {foutint}|{fouti}]{bcolors.ENDC}",
-                                  end='')
-                            fout[fouti].append(chr(w + 97))
-                if str(ecl[l]) == "9999":
-                    print(f"\r{bcolors.OKGREEN}[ENCODED VALUES DETECTED: {foutint}|{fouti}]{bcolors.ENDC}", end='')
-                    fout.append([])
-                    fouti += 1
-            print(f"{bcolors.OKGREEN}\n[DECODING SUCCESS]{bcolors.ENDC}")
-            ff = []
-            for i in range(len(fout)):
-                ff.append("".join(fout[i]))
-            print("----------------------")
-            print(" ".join(ff))
-            print("----------------------")
+            if gen == True:
+                ecl = wrap(ec, 4)
+                # if str in ecl:
+                # print(f"{bcolors.FAIL}[DECODING FAILURE: CHECK YOUR INPUT]{bcolors.ENDC}")
+                # print("'\r{0}".format("Input command\n> "), end='')'''
+                print(f"{bcolors.OKGREEN}[STR WRAPPING SUCCESS]{bcolors.ENDC}")
+                fout = [[]]
+                foutint = 0
+                fouti = 0
+                for l in range(len(ecl)):
+                    for w in range(len(cypher)):
+                        for i in range(4):
+                            if str(ecl[l]) == str(cypher[w][i]):
+                                foutint += 1
+                                print(f"\r{bcolors.OKGREEN}[ENCODED VALUES DETECTED: {foutint}|{fouti}]{bcolors.ENDC}",
+                                      end='')
+                                fout[fouti].append(chr(w + 97))
+                    if str(ecl[l]) == "9999":
+                        print(f"\r{bcolors.OKGREEN}[ENCODED VALUES DETECTED: {foutint}|{fouti}]{bcolors.ENDC}", end='')
+                        fout.append([])
+                        fouti += 1
+                print(f"{bcolors.OKGREEN}\n[DECODING SUCCESS]{bcolors.ENDC}")
+                ff = []
+                for i in range(len(fout)):
+                    ff.append("".join(fout[i]))
+                print("----------------------")
+                print(" ".join(ff))
+                print("----------------------")
+            else:
+                print("'\r{0}".format(f"{bcolors.FAIL}[DECODING FAILED: NO CYPHER]{bcolors.ENDC}"))
             print("'\r{0}".format("Input Command\n> "), end='')
         elif a == "set" or a == "s":
             print("Input Cypher\n> ", end='')
