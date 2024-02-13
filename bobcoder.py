@@ -3,7 +3,6 @@ import random
 import re
 import json
 
-
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 def wrap(s, w):
@@ -136,35 +135,6 @@ if __name__ == '__main__':
             for w in range(rack):
                 for i in range(4):
                     cypher[w][i] = int(random.randrange(1000, 9998))
-                if w >= 0.1 * rack:
-                    print("'\r{0}".format(f"Generating Cypher [10%] █▒▒▒▒▒▒▒▒▒ "), end='')
-
-                if w >= 0.2 * rack:
-                    print("'\r{0}".format(f"Generating Cypher [20%] ██▒▒▒▒▒▒▒▒ "), end='')
-
-                if w >= 0.3 * rack:
-                    print("'\r{0}".format(f"Generating Cypher [30%] ███▒▒▒▒▒▒▒ "), end='')
-
-                if w >= 0.4 * rack:
-                    print("'\r{0}".format(f"Generating Cypher [40%] ████▒▒▒▒▒▒ "), end='')
-
-                if w >= 0.5 * rack:
-                    print("'\r{0}".format(f"Generating Cypher [50%] █████▒▒▒▒▒ "), end='')
-
-                if w >= 0.6 * rack:
-                    print("'\r{0}".format(f"Generating Cypher [60%] ██████▒▒▒▒ "), end='')
-
-                if w >= 0.7 * rack:
-                    print("'\r{0}".format(f"Generating Cypher [70%] ███████▒▒▒ "), end='')
-
-                if w >= 0.8 * rack:
-                    print("'\r{0}".format(f"Generating Cypher [80%] ████████▒▒ "), end='')
-
-                if w >= 0.9 * rack:
-                    print("'\r{0}".format(f"Generating Cypher [90%] █████████▒ "), end='')
-
-                if w >= 0.10 * rack:
-                    print("'\r{0}".format(f"Generating Cypher [100%] ██████████ "), end='')
             print("'\r{0}".format(f"{bcolors.OKGREEN}[Generated]{bcolors.ENDC}\n"))
             print(json.dumps(cypher))
             print("\nInput Command\n> ", end='')
