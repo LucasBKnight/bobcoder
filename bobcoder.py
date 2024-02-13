@@ -52,7 +52,7 @@ if __name__ == '__main__':
     gen = False
     LINE_CLEAR = '\x1b[2K'
     b = True
-    print(f'{bcolors.OKCYAN}for a list of commands type "help"{bcolors.ENDC}')
+    print(f'Bobcoder MacOS Ver 0.1.2 Beta\n{bcolors.OKCYAN}for a list of commands type "help"{bcolors.ENDC}')
     print("'\r{0}".format("Input command\n> "), end='')
     while b == True:
         a = input()
@@ -108,7 +108,7 @@ if __name__ == '__main__':
                 ecl = wrap(ec, 1)
                 # print(ecl)
                 for i in range(len(ecl)):
-                    print(ord(ecl[i]))
+                    #print(ord(ecl[i]))
                     ecl[i] = str(ord(ecl[i]))
                 ecl = listToString(ecl)
                 ecl = wrap(ecl, 4)
