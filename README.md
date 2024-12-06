@@ -10,5 +10,5 @@ the latest exe files are in the "exefiles" folder, go nuts. Note that "BobcoderM
 
 **Bobcoder Windows Ver 0.1.1 Beta**
   
-  One stage encoding as unicode encoding is finicky with language based unicode. this means when I add the second encoding pass to the windows versin it will have to be longer unless I find a solution
+  One stage encoding as unicode encoding is finicky with language based unicode. this means when I add the second encoding pass to the windows version it will have to be longer unless I find a solution
   
